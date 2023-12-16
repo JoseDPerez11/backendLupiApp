@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import static com.dam.backendlupi.utils.Global.*;
+//es un controlador de excepciones global que se centra en manejar excepciones específicas en
+// toda la aplicación. Proporciona respuestas personalizadas para diferentes tipos de excepciones,
+// lo que puede ser útil para tener mensajes de error coherentes y específicos para situaciones
+// conocidas en tu aplicación.
 
+//La anotación @Order se utiliza para especificar el orden de ejecución de este asesor
+// en relación con otros asesores.
 @RestControllerAdvice
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE) //.HIGHEST_PRECEDENCE indica que este asesor debe tener la máxima prioridad de ejecución.
 public class SpecificExceptionHandler {
 
     @ExceptionHandler(JDBCException.class)
@@ -34,5 +40,4 @@ public class SpecificExceptionHandler {
     public GenericResponse myFileNotFoundException(MyFileNotFoundException exception) {
         return new GenericResponse("my-file-not-found-exception", RPTA_ERROR, OPERACION_INCORRECTA, exception.getMessage());
     }
-
 }
