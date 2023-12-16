@@ -3,7 +3,7 @@ package com.dam.backendlupi.services;
 import com.dam.backendlupi.config.FileStorageProperties;
 import com.dam.backendlupi.exception.FileStorageException;
 import com.dam.backendlupi.exception.MyFileNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class FileStorageService {
-    @Autowired
+
     private FileStorageProperties fileStorageProperties;
 
     //guardar el nombre del archivo
@@ -28,14 +29,16 @@ public class FileStorageService {
         String originalName = StringUtils.cleanPath(file.getOriginalFilename());
         String extension = originalName.substring(originalName.lastIndexOf("."));
 
-        if (fileName.equals("")) {
+        if (fileName.isEmpty()) {
             fileName = UUID.randomUUID().toString();
         }
+
         Path fileStorageLocation = Path.of((getFolderName(originalName)));
         Path targetLocation = fileStorageLocation.resolve(fileName + extension);
         try {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
+
         } catch (IOException e) {
             throw new FileStorageException("No se pudo almacenar el archivo", e);
         }
@@ -52,6 +55,7 @@ public class FileStorageService {
             } else {
                 throw new MyFileNotFoundException("Archivo no encontrado: " + completeFileName);
             }
+
         } catch (MalformedURLException e) {
             throw new MyFileNotFoundException("Ha ocurrido un error al intentar acceder al archivo: " + completeFileName, e);
         }
@@ -65,8 +69,7 @@ public class FileStorageService {
 
     //crear la ruta del directorio
     private Path getFileStorageLocation(String folderName) {
-        Path fileStorageLocation = Paths.get(
-                fileStorageProperties.getUploadDir() + "/" + folderName).toAbsolutePath().normalize();
+        Path fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir() + "/" + folderName).toAbsolutePath().normalize();
         try {
             Files.createDirectories(fileStorageLocation);
             return fileStorageLocation;
@@ -74,5 +77,4 @@ public class FileStorageService {
             throw new FileStorageException("No se pudo crear el directorio", e);
         }
     }
-
 }

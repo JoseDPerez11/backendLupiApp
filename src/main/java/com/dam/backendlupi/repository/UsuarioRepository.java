@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
-    @Query("SELECT U FROM Usuario WHERE U.email =:correo AND U.clave =:password")
+    @Query("Select U from Usuario U where U.email=:correo AND U.clave=:password")
     Optional<Usuario> login(String correo, String password);
 }
