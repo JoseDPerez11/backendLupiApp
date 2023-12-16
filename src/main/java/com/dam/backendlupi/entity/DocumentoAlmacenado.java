@@ -1,13 +1,16 @@
 package com.dam.backendlupi.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class DocumentoAlmacenado {
 
     @Id
