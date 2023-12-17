@@ -5,10 +5,12 @@ import lombok.*;
 @Getter
 @Setter
 public class GenericResponse<T> {
+
     private String type;
     private int rpta;
     private String message;
     private T body;
+
     public GenericResponse() {
         type = "";
         rpta = 0;

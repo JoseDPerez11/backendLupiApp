@@ -2,10 +2,11 @@ package com.dam.backendlupi.services;
 
 import com.dam.backendlupi.entity.DocumentoAlmacenado;
 import com.dam.backendlupi.repository.DocumentoAlmacenadoRepository;
-import com.dam.backendlupi.utils.GenericResponse;
 
 import static com.dam.backendlupi.utils.Global.*;
-import lombok.RequiredArgsConstructor;
+
+import com.dam.backendlupi.utils.GenericResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,11 +22,13 @@ import java.util.HashMap;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class DocumentoAlmacenadoService {
 
+    @Autowired
     private DocumentoAlmacenadoRepository docAlmacenadoRepo;
+    @Autowired
     private FileStorageService storageService;
+
 
     // esta función devuelve un objeto GenericResponse que envuelve una lista de DocumentoAlmacenado.
     // El GenericResponse proporciona información sobre el tipo de resultado, el código de
@@ -61,7 +64,7 @@ public class DocumentoAlmacenadoService {
         obj.setExtension(extension);
 
         // Guarda el objeto DocumentoAlmacenado actualizado en la bd y devuelve la respuesta
-        return new GenericResponse(TIPO_DATA, RPTA_OK,OPERACION_CORRECTA,docAlmacenadoRepo.save(obj));
+        return new GenericResponse(TIPO_DATA, RPTA_OK,OPERACION_CORRECTA, docAlmacenadoRepo.save(obj));
     }
 
     public ResponseEntity<Resource> downloadByFileName(String fileName, HttpServletRequest request) {
