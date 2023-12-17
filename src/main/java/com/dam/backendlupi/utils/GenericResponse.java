@@ -9,7 +9,6 @@ public class GenericResponse<T> {
     private int rpta;
     private String message;
     private T body;
-
     public GenericResponse() {
         type = "";
         rpta = 0;
