@@ -3,7 +3,7 @@ package com.dam.backendlupi.services;
 import com.dam.backendlupi.config.FileStorageProperties;
 import com.dam.backendlupi.exception.FileStorageException;
 import com.dam.backendlupi.exception.MyFileNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class FileStorageService {
 
+    @Autowired
     private FileStorageProperties fileStorageProperties;
 
 
@@ -36,13 +36,13 @@ public class FileStorageService {
 
         // Si el nombre del archivo está vacío, genera un nombre único utilizando UUID. Esto
         // es útil si el cliente no proporciona un nombre de archivo específico.
-        if (fileName.isEmpty()) {
+        if (fileName.equals("")) {
             fileName = UUID.randomUUID().toString();
         }
 
         // Obtiene la ubicación del almacenamiento del archivo. Esto podría ser una ruta en
         // el sistema de archivos donde se guardarán los archivos.
-        Path fileStorageLocation = Path.of((getFolderName(originalName)));
+        Path fileStorageLocation = getFileStorageLocation(getFolderName(originalName));
 
         // Resuelve la ubicación objetivo utilizando el nombre del archivo y la extensión.
         // Esta es la ubicación donde se almacenará el archivo.
