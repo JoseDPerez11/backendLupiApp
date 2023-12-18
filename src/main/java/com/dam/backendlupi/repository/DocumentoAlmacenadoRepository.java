@@ -11,5 +11,4 @@ public interface DocumentoAlmacenadoRepository extends CrudRepository<DocumentoA
     Iterable<DocumentoAlmacenado> list();
     @Query("SELECT da FROM DocumentoAlmacenado da WHERE da.fileName =:fileName AND da.estado = 'A' AND da.eliminado = false")
     Optional<DocumentoAlmacenado> findByFileName(String fileName);
-
 }
