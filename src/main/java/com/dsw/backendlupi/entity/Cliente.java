@@ -15,7 +15,7 @@ public class Cliente {
 
     @Column(length = 100)
     private String nombres;
-    @Column(length = 100)   
+    @Column(length = 100)
     private String apellidoPaterno;
     @Column(length = 100)
     private String apellidoMaterno;
