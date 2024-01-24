@@ -28,7 +28,7 @@ public class Producto {
 
     @OneToOne
     private Categoria categoria;
-    
+
     @Column
     private boolean vigencia;
     @Column
