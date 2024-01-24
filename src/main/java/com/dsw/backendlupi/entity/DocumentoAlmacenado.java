@@ -35,4 +35,8 @@ public class DocumentoAlmacenado {
         eliminado = false;
     }
 
+    public String getCompleteFileName() {
+        return fileName + extension;
+    }
+
 }
