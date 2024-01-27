@@ -29,6 +29,25 @@ public class UsuarioService {
     }
 
     // Guardar credenciales
-    
+    public GenericResponse guardarUsuario(Usuario usuario) {
+        // Buscar el usuario por ID en el repositorio
+        Optional<Usuario> optionalUsuario = this.uRepository.findById(usuario.getId());
+
+        // Obtener el ID del usuario si existe, de lo contrario, establecerlo en 0
+        int idf = optionalUsuario.isPresent() ? optionalUsuario.get().getId() : 0;
+
+        // Verificar si el usuario existe en la base de datos
+        if (idf == 0) {
+            // Si el usuario no existe, se registra y se devuelve una respuesta positiva
+            return new GenericResponse(
+                    TIPO_DATA, RPTA_OK, "Usuario registrado correctamente",
+                    this.uRepository.save(usuario));
+        } else {
+            // Si el usuario ya existe, se actualizan los datos y se devuelve una respuesta positiva
+            return new GenericResponse(
+                    TIPO_DATA, RPTA_OK, "Datos del usuario actualizado",
+                    this.uRepository.save(usuario));
+        }
+    }
 
 }

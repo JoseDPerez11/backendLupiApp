@@ -4,9 +4,7 @@ import com.dsw.backendlupi.entity.Usuario;
 import com.dsw.backendlupi.service.UsuarioService;
 import com.dsw.backendlupi.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +20,15 @@ public class UsuarioController {
         String email = request.getParameter("email");
         String contrasenia = request.getParameter("pass");
         return uService.login(email, contrasenia);
+    }
+
+    @PostMapping
+    public GenericResponse save(@RequestBody Usuario usuario) {
+        return this.uService.guardarUsuario(usuario);
+    }
+
+    public GenericResponse update(@PathVariable int id, @RequestBody Usuario usuario) {
+        return this.uService.guardarUsuario(usuario);
     }
 
 }
