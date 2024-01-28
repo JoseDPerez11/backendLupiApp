@@ -11,7 +11,7 @@ public interface ClienteRepository extends CrudRepository<Cliente, Integer> {
     int existByDoc(String dni);
 
     // Comprueba la existencia de un cliente por número de documento excluyendo un ID específico
-    @Query(value = "SELECT EXISTS(SELECT c.* FROM cliente c WHERE c.num_doc=:dni AND NOT (c.id=:id)", nativeQuery = true)
+    @Query(value = "SELECT EXISTS(SELECT c.* FROM cliente c WHERE c.num_doc=:dni AND NOT (c.id=:id))", nativeQuery = true)
     int existByDocForUpdate(String dni, int id);
 
 }
