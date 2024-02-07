@@ -4,8 +4,8 @@ import com.dsw.backendlupi.repository.CategoriaRepository;
 import com.dsw.backendlupi.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 import static com.dsw.backendlupi.utils.Global.*;
 
